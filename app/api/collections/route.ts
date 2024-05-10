@@ -41,3 +41,17 @@ export const POST = async (req: NextRequest) => {
         return new NextResponse("Internal Server Error", {status: 500})
     }
 }
+
+
+export const GET = async (req: NextRequest) =>{
+    try{
+        await connectToDb();
+
+        const collections = await Collection.find()
+        return NextResponse.json(collections, {status: 200})
+
+    }catch (err){
+        console.log("[collection_get_error]", err)
+        return new NextResponse("Internal Server Error", {status: 500})
+    }
+}
